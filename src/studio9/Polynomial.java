@@ -3,14 +3,15 @@ package studio9;
 import java.util.LinkedList;
 
 public class Polynomial {
-	
+	//commands under List to know for test: add, find specific item, index, remove
 	private LinkedList<Double> list;
 
 	/**
 	 * Constructs a Polynomial with no terms yet.
 	 */
 	public Polynomial() {
-		//FIXME
+		list = new LinkedList<Double>();
+		//LinkedList list = new LinkedList ();
 	}
 
 	
@@ -20,7 +21,7 @@ public class Polynomial {
 	 * @return polynomial with added term
 	 */
 	public void addTerm(double coeff) {
-		//FIXME
+		list.add(coeff);
 	}
 	
 	/*
@@ -29,7 +30,21 @@ public class Polynomial {
 	 * Cx^N + Cx^N-1 + ... + Cx + C
 	 */
 	public String toString() {
-		return ""; //FIXME
+		int len = list.size();
+		String x = "";
+		for (int i=0;i<len;i++) {
+			x+=list.get(i)+"x^";
+			int pow=len-1-i;
+			x+=pow;
+			
+			if (i+1<len) {
+				if(list.get(i+1)>=0) {
+					x+="+";
+				}
+			}
+		}
+		//System.out.println(x);
+		return x; 
 	}
 	
 	/**
@@ -38,7 +53,16 @@ public class Polynomial {
 	 * @return value of polynomial at that x
 	 */
 	public double evaluate(double x) {
-		return 0;//FIXME
+		int len = list.size();
+		double y = 0;
+		for (int i=0;i<len;i++) {
+			int pow=len-1-i;
+			double coef = list.get(i);
+			double answ = Math.pow(x, pow);
+			y+=answ*coef;
+		}
+		//System.out.println(y);
+		return y;
 	}
 
 	
@@ -95,6 +119,15 @@ public class Polynomial {
 		//   that the elements in each list agree.
 
 		return this.list.equals(other.list);
+	}
+	
+	public static void main(String[] args) {
+		Polynomial test = new Polynomial();
+		test.addTerm(1);
+		test.addTerm(0);
+		test.addTerm(-4);
+		test.toString();
+		test.evaluate(1); 
 	}
 
 }
